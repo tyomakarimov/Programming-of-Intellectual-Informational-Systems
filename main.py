@@ -1,13 +1,14 @@
 import pygame
 
-# WIDTH, HEIGHT = 800, 600
-# WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
-
 from window import *
 
+FPS = 60
+
 def main():
+  clock = pygame.time.Clock()
   run = True
   while run:
+    clock.tick(FPS)
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         run = False
