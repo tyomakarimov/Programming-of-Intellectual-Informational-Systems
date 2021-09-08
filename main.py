@@ -1,8 +1,11 @@
 import pygame
 
 from window import *
-from helpers import laser_shots
 import shields
+from helpers import laser_shots
+from helpers import the_alien_shots
+from helpers import random_shot
+from helpers import current_position
 
 FPS = 60
 
@@ -32,10 +35,28 @@ def main():
       laser.laser_rect.x -= 3
     if (
       keys_pressed[pygame.K_RIGHT] or keys_pressed[pygame.K_d]
-    ) and laser.laser_rect.x + 3 + laser.laser_rect.width < WIDTH:
+    ) and laser.laser_rect.x + laser.laser_rect.width + 10 < WIDTH:
       laser.laser_rect.x += 3
-    laser_shots.handle_laser_shots(shots, aliens.aliens, shields.shields, shield_images)
+    laser_shots.handle_laser_shots(
+      shots,
+      aliens.aliens,
+      shields.shields,
+      shield_images
+    )
+    the_alien_shots.handle_alien_shots(
+      laser.laser_rect,
+      alien_shots,
+      laser_image,
+      shields.shields,
+      shield_images
+    )
     draw_window()
+
+    if (i % 30 == 0) and len(aliens.aliens) > 0:
+      random_shot.get_random_shot(len(aliens.aliens), alien_shots)
+      current_position.change_current_position(current)
+      print(current[0])
+    i += 1
   pygame.quit()
 
 if __name__ == '__main__':
