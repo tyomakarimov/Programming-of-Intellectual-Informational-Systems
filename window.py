@@ -20,6 +20,25 @@ laser_image = [0]
 shots = []
 alien_shots = []
 current = [0]
+result = ['']
+
+def draw_result(text):
+  text = RESULT_FONT.render(text, 1, (255, 255, 255))
+  surface = pygame.display.get_surface()
+  rect = pygame.Rect(
+    WIDTH / 2 - text.get_width() / 2 - 30,
+    HEIGHT / 2 - text.get_height() / 2 - 30,
+    text.get_width() + 60,
+    text.get_height() + 60
+  )
+  surface.fill((0, 128, 0), rect)
+  WINDOW.blit(
+    text,
+    (WIDTH / 2 - text.get_width() / 2, HEIGHT / 2 - text.get_height() / 2)
+  )
+  result[0] = text
+  pygame.display.update()
+  pygame.time.delay(5000)
 
 def draw_window():
   WINDOW.blit(pygame.transform.scale(BACKGROUND, (800, 600)), (0, 0))
@@ -34,7 +53,10 @@ def draw_window():
     if shield_images[i] <= 5:
       WINDOW.blit(shield.get_shield(shield_images[i]), (83 + 200 * i, 500))
   if (laser_image[0] <= 6):
-    WINDOW.blit(laser.get_laser(laser_image[0]), (laser.laser_rect.x, laser.laser_rect.y))
+    WINDOW.blit(
+      laser.get_laser(laser_image[0]),
+      (laser.laser_rect.x, laser.laser_rect.y)
+    )
   for shot in shots:
     pygame.draw.rect(WINDOW, (255, 0, 0), shot)
   for shot in alien_shots:

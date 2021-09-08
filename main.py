@@ -17,12 +17,13 @@ def main():
   run = True
   while run:
     clock.tick(FPS)
+    if (result[0]):
+      break
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         run = False
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_UP or event.key == pygame.K_w:
-          print('hey')
           shot = pygame.Rect(
             laser.laser_rect.x + laser.laser_rect.width / 2,
             laser.laser_rect.y, 
@@ -53,15 +54,20 @@ def main():
       shield_images
     )
     draw_window()
+    if len(aliens.aliens) == 0:
+      draw_result('You have won!!!')
+    if laser_image[0] > 6:
+      draw_result('You have lost.')
 
     if (i % 30 == 0) and len(aliens.aliens) > 0:
       random_shot.get_random_shot(len(aliens.aliens), alien_shots, aliens.aliens)
       current_position.change_current_position(current)
       move_left_value, max_y = change_direction.change_current_direction(move_left, aliens.aliens)
       move_left = move_left_value
-      # if max_y > 440:
-      #   draw_result('You have lost.')
+      if max_y > 440:
+        draw_result('You have lost.')
     i += 1
+  result[0] = ''
   pygame.quit()
 
 if __name__ == '__main__':
