@@ -6,12 +6,14 @@ from helpers import laser_shots
 from helpers import the_alien_shots
 from helpers import random_shot
 from helpers import current_position
+from helpers import change_direction
 
 FPS = 60
 
 def main():
   clock = pygame.time.Clock()
   i = 0
+  move_left = True
   run = True
   while run:
     clock.tick(FPS)
@@ -53,9 +55,12 @@ def main():
     draw_window()
 
     if (i % 30 == 0) and len(aliens.aliens) > 0:
-      random_shot.get_random_shot(len(aliens.aliens), alien_shots)
+      random_shot.get_random_shot(len(aliens.aliens), alien_shots, aliens.aliens)
       current_position.change_current_position(current)
-      print(current[0])
+      move_left_value, max_y = change_direction.change_current_direction(move_left, aliens.aliens)
+      move_left = move_left_value
+      # if max_y > 440:
+      #   draw_result('You have lost.')
     i += 1
   pygame.quit()
 
