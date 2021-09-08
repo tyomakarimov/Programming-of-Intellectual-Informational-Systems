@@ -58,7 +58,6 @@ def main():
       draw_result('You have won!!!')
     if laser_image[0] > 6:
       draw_result('You have lost.')
-
     if (i % 30 == 0) and len(aliens.aliens) > 0:
       random_shot.get_random_shot(len(aliens.aliens), alien_shots, aliens.aliens)
       current_position.change_current_position(current)
