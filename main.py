@@ -4,9 +4,11 @@ from window import *
 import shields
 from helpers import laser_shots
 from helpers import the_alien_shots
+from helpers import the_asteroids
 from helpers import random_shot
 from helpers import current_position
 from helpers import change_direction
+from helpers import asteroid
 
 FPS = 60
 
@@ -53,11 +55,20 @@ def main():
       shields.shields,
       shield_images
     )
+    the_asteroids.handle_asteroids(
+      laser.laser_rect,
+      asteroids,
+      laser_image,
+      shields.shields,
+      shield_images
+    )
     draw_window()
     if len(aliens.aliens) == 0:
       draw_result('You have won!!!')
     if laser_image[0] > 6:
       draw_result('You have lost.')
+    if (i % 15 == 0):
+      asteroid.get_asteroid_rect(asteroids)
     if (i % 30 == 0) and len(aliens.aliens) > 0:
       random_shot.get_random_shot(len(aliens.aliens), alien_shots, aliens.aliens)
       current_position.change_current_position(current)

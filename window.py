@@ -5,6 +5,7 @@ import aliens
 from helpers import alien
 from helpers import shield
 from helpers import laser
+from helpers import asteroid
 
 pygame.font.init()
 pygame.display.set_caption('Space Invaders')
@@ -21,6 +22,7 @@ shots = []
 alien_shots = []
 current = [0]
 result = ['']
+asteroids = []
 
 def draw_result(text):
   text = RESULT_FONT.render(text, 1, (255, 255, 255))
@@ -57,6 +59,8 @@ def draw_window():
       laser.get_laser(laser_image[0]),
       (laser.laser_rect.x, laser.laser_rect.y)
     )
+  for an_asteroid in asteroids:
+    WINDOW.blit(asteroid.get_asteroid(), (an_asteroid.x, an_asteroid.y))
   for shot in shots:
     pygame.draw.rect(WINDOW, (255, 0, 0), shot)
   for shot in alien_shots:
