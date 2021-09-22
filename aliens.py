@@ -59,8 +59,29 @@ alien_coordinates = [
   { 'x': 460, 'y': 320, 'type': 3 },
 ]
 
+alien_coordinates2 = [
+  { 'x': 200, 'y': 80, 'type': 3 },
+  { 'x': 280, 'y': 80, 'type': 3 },
+  { 'x': 360, 'y': 80, 'type': 3 },
+  { 'x': 440, 'y': 80, 'type': 3 },
+  { 'x': 520, 'y': 80, 'type': 3 },
+
+  { 'x': 200, 'y': 160, 'type': 1 },
+  { 'x': 280, 'y': 160, 'type': 1 },
+  { 'x': 360, 'y': 160, 'type': 1 },
+  { 'x': 440, 'y': 160, 'type': 1 },
+  { 'x': 520, 'y': 160, 'type': 1 },
+
+
+  { 'x': 200, 'y': 240, 'type': 2 },
+  { 'x': 280, 'y': 240, 'type': 2 },
+  { 'x': 360, 'y': 240, 'type': 2 },
+  { 'x': 440, 'y': 240, 'type': 2 },
+  { 'x': 520, 'y': 240, 'type': 2 },
+]
+
 aliens = []
 
-for coordinates in alien_coordinates:
-  alien_rect = pygame.Rect(coordinates['x'], coordinates['y'], 40, 40)
+for coordinates in alien_coordinates2:
+  alien_rect = pygame.Rect(coordinates['x'], coordinates['y'], 80, 80)
   aliens.append(alien_rect)

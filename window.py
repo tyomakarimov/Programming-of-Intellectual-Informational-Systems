@@ -45,9 +45,9 @@ def draw_result(text):
 def draw_window():
   WINDOW.blit(pygame.transform.scale(BACKGROUND, (800, 600)), (0, 0))
   for idx, an_alien in enumerate(aliens.aliens):
-    if aliens.alien_coordinates[idx]['type'] == 1:
+    if aliens.alien_coordinates2[idx]['type'] == 1:
       WINDOW.blit(alien.get_alien1(current[0]), (an_alien.x, an_alien.y))
-    elif aliens.alien_coordinates[idx]['type'] == 2:
+    elif aliens.alien_coordinates2[idx]['type'] == 2:
       WINDOW.blit(alien.get_alien2(current[0]), (an_alien.x, an_alien.y))
     else:
       WINDOW.blit(alien.get_alien3(current[0]), (an_alien.x, an_alien.y))
@@ -65,4 +65,12 @@ def draw_window():
     pygame.draw.rect(WINDOW, (255, 0, 0), shot)
   for shot in alien_shots:
     pygame.draw.rect(WINDOW, (255, 165, 0), shot)
+  for an_alien in aliens.aliens:
+    if an_alien.y == 240:
+      pygame.draw.line(
+        WINDOW, 
+        (255, 0, 0),
+        [an_alien.x + 40, an_alien.y + 60], 
+        [laser.laser_rect.x + 20, laser.laser_rect.y]
+      )
   pygame.display.update()
