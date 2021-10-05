@@ -1,9 +1,11 @@
 import pygame
 import os
 
-laser_rect = pygame.Rect(500, 550, 32, 20)
+laser_coordinates = { 'x': 480, 'y': 540 }
+
+laser_rect = pygame.Rect(480, 540, 30, 30)
 
 def get_laser(current: int):
   return pygame.transform.scale(
-    pygame.image.load(os.path.join('Assets', f'laser{current}.png')), (40, 25)
+    pygame.image.load(os.path.join('Assets', f'laser{current}.png')), (30, 19)
   )

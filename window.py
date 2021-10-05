@@ -5,17 +5,21 @@ import aliens
 from helpers import alien
 from helpers import shield
 from helpers import laser
-from helpers import asteroid
+import shields
 
 pygame.font.init()
 pygame.display.set_caption('Space Invaders')
 
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 600, 600
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 BACKGROUND = pygame.image.load(os.path.join('Assets', 'bg.jpg'))
 RESULT_FONT = pygame.font.SysFont('roboto', 80)
 
-shield_images = [0, 0, 0, 0]
+shield_images = []
+
+for i in range(len(shields.shields_coordinates)):
+  shield_images.append(0)
+
 laser_image = [0]
 
 shots = []
@@ -51,26 +55,19 @@ def draw_window():
       WINDOW.blit(alien.get_alien2(current[0]), (an_alien.x, an_alien.y))
     else:
       WINDOW.blit(alien.get_alien3(current[0]), (an_alien.x, an_alien.y))
-  for i in range(4):
+  for i in range(len(shields.shields_coordinates)):
     if shield_images[i] <= 5:
-      WINDOW.blit(shield.get_shield(shield_images[i]), (83 + 200 * i, 500))
+      WINDOW.blit(shield.get_shield(
+        shield_images[i]),
+        (shields.shields_coordinates[i]['x'], shields.shields_coordinates[i]['y'])
+      )
   if (laser_image[0] <= 6):
     WINDOW.blit(
       laser.get_laser(laser_image[0]),
       (laser.laser_rect.x, laser.laser_rect.y)
     )
-  for an_asteroid in asteroids:
-    WINDOW.blit(asteroid.get_asteroid(), (an_asteroid.x, an_asteroid.y))
   for shot in shots:
     pygame.draw.rect(WINDOW, (255, 0, 0), shot)
   for shot in alien_shots:
     pygame.draw.rect(WINDOW, (255, 165, 0), shot)
-  for an_alien in aliens.aliens:
-    if an_alien.y == 240:
-      pygame.draw.line(
-        WINDOW, 
-        (255, 0, 0),
-        [an_alien.x + 40, an_alien.y + 60], 
-        [laser.laser_rect.x + 20, laser.laser_rect.y]
-      )
   pygame.display.update()

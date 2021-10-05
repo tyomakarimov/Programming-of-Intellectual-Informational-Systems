@@ -1,4 +1,11 @@
-def handle_laser_shots(shots: list, aliens: list, shields: list, shield_images: list):
+def handle_laser_shots(
+  shots: list,
+  aliens: list,
+  shields: list,
+  shield_images: list,
+  coordinates: list,
+  previous_paths: list,
+):
   for shot in shots:
     shot.y -= 7
     for idx, shield in enumerate(shields):
@@ -13,3 +20,8 @@ def handle_laser_shots(shots: list, aliens: list, shields: list, shield_images: 
         if shot in shots:
           shots.remove(shot)
         aliens.remove(alien)
+        for idx, coord in enumerate(coordinates):
+          if coord['x'] == alien.x and coord['y'] == alien.y:
+            coordinates.remove(coord)
+            previous_paths.pop(idx)
+

@@ -1,4 +1,4 @@
-def change_current_direction(move_left: bool, aliens: list):
+def change_current_direction(move_left: bool, aliens: list, coordinates):
   if len(aliens) == 0:
     return
   x_positions = []
@@ -12,14 +12,20 @@ def change_current_direction(move_left: bool, aliens: list):
   if min_x <= 1:
     move_left = False
     for alien in aliens:
-      alien.y += 20
-  if max_x >= 759:
+      alien.y += 30
+    for value in coordinates:
+      value['y'] += 30
+  if max_x >= 569:
     move_left = True
-    for alien in aliens:
-      alien.y += 20
   for alien in aliens:
     if move_left:
-      alien.x -= 10
+      alien.x -= 30
     else:
-      alien.x += 10
+      alien.x += 30
+  if move_left:
+    for value in coordinates:
+      value['x'] -= 30
+  else:
+    for value in coordinates:
+      value['x'] += 30
   return move_left, max_y

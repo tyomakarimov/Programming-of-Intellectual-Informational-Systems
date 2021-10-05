@@ -7,7 +7,7 @@ def get_random_shot(range: int, shots: list, aliens: list):
   shot = pygame.Rect(
     current_alien.x + current_alien.width / 2,
     current_alien.y + current_alien.height,
-    7,
-    14,
+    5,
+    10,
   )
   shots.append(shot)

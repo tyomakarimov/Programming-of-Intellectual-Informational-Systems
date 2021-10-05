@@ -8,7 +8,6 @@ from helpers import the_asteroids
 from helpers import random_shot
 from helpers import current_position
 from helpers import change_direction
-from helpers import asteroid
 
 FPS = 60
 
@@ -37,11 +36,11 @@ def main():
     if (
       keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]
     ) and laser.laser_rect.x - 3 > 0:
-      laser.laser_rect.x -= 3
+      laser.laser_rect.x -= 30
     if (
       keys_pressed[pygame.K_RIGHT] or keys_pressed[pygame.K_d]
     ) and laser.laser_rect.x + laser.laser_rect.width + 10 < WIDTH:
-      laser.laser_rect.x += 3
+      laser.laser_rect.x += 30
     laser_shots.handle_laser_shots(
       shots,
       aliens.aliens,
@@ -67,9 +66,7 @@ def main():
       draw_result('You have won!!!')
     if laser_image[0] > 6:
       draw_result('You have lost.')
-    if (i % 15 == 0):
-      asteroid.get_asteroid_rect(asteroids)
-    if (i % 30 == 0) and len(aliens.aliens) > 0:
+    if (i % 60 == 0) and len(aliens.aliens) > 0:
       random_shot.get_random_shot(len(aliens.aliens), alien_shots, aliens.aliens)
       current_position.change_current_position(current)
       move_left_value, max_y = change_direction.change_current_direction(move_left, aliens.aliens)
