@@ -1,8 +1,8 @@
-import matrix
+import the_matrix
 from helpers import the_neighbours
 
 def DFS(start, target):
-  current_matrix = matrix.generate_matrix()
+  current_matrix = the_matrix.generate_matrix()
   stack = [start]
   path = []
   visited = []

@@ -1,10 +1,10 @@
 from queue import PriorityQueue
 
-import matrix
+import the_matrix
 from helpers import the_neighbours
 
 def UCS(start, target):
-  current_matrix = matrix.generate_matrix()
+  current_matrix = the_matrix.generate_matrix()
   queue = PriorityQueue()
   queue.put((0, start))
   visited = []
