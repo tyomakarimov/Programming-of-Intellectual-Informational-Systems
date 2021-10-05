@@ -2,6 +2,7 @@ import pygame
 
 from window import *
 import shields
+import aliens
 from helpers import laser_shots
 from helpers import the_alien_shots
 from helpers import the_asteroids
@@ -32,20 +33,31 @@ def main():
             10
           )
           shots.append(shot)
-    keys_pressed = pygame.key.get_pressed()
-    if (
-      keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]
-    ) and laser.laser_rect.x - 3 > 0:
-      laser.laser_rect.x -= 30
-    if (
-      keys_pressed[pygame.K_RIGHT] or keys_pressed[pygame.K_d]
-    ) and laser.laser_rect.x + laser.laser_rect.width + 10 < WIDTH:
-      laser.laser_rect.x += 30
+        if event.key == pygame.K_z:
+          if current_algorithm[0] < 2:
+            current_algorithm[0] += 1
+          else:
+            current_algorithm[0] = 0
+          show_path(i, current_algorithm, True)
+        if (
+          event.key == pygame.K_LEFT or event.key == pygame.K_a
+        ) and laser.laser_rect.x - 3 > 0:
+          laser.laser_rect.x -= 30
+          laser.laser_coordinates['x'] -= 30
+          show_path(i, current_algorithm, True)
+        if (
+          event.key == pygame.K_RIGHT or event.key == pygame.K_d
+        ) and laser.laser_rect.x + laser.laser_rect.width + 10 < WIDTH:
+          laser.laser_rect.x += 30
+          laser.laser_coordinates['x'] += 30
+          show_path(i, current_algorithm, True)
     laser_shots.handle_laser_shots(
       shots,
       aliens.aliens,
       shields.shields,
-      shield_images
+      shield_images,
+      aliens.alien_coordinates,
+      previous_paths
     )
     the_alien_shots.handle_alien_shots(
       laser.laser_rect,
@@ -69,10 +81,15 @@ def main():
     if (i % 60 == 0) and len(aliens.aliens) > 0:
       random_shot.get_random_shot(len(aliens.aliens), alien_shots, aliens.aliens)
       current_position.change_current_position(current)
-      move_left_value, max_y = change_direction.change_current_direction(move_left, aliens.aliens)
+      move_left_value, max_y = change_direction.change_current_direction(
+        move_left,
+        aliens.aliens,
+        aliens.alien_coordinates
+      )
       move_left = move_left_value
       if max_y > 440:
         draw_result('You have lost.')
+    show_path(i, current_algorithm, False)
     i += 1
   result[0] = ''
   pygame.quit()
