@@ -15,7 +15,7 @@ from DFS import DFS
 from UCS import UCS
 
 pygame.font.init()
-pygame.display.set_caption('Space Invaderssss')
+pygame.display.set_caption('Space Invaders')
 
 WIDTH, HEIGHT = 600, 600
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
