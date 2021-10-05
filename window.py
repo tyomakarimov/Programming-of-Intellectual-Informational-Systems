@@ -49,12 +49,7 @@ def draw_result(text):
 def draw_window():
   WINDOW.blit(pygame.transform.scale(BACKGROUND, (800, 600)), (0, 0))
   for idx, an_alien in enumerate(aliens.aliens):
-    if aliens.alien_coordinates2[idx]['type'] == 1:
-      WINDOW.blit(alien.get_alien1(current[0]), (an_alien.x, an_alien.y))
-    elif aliens.alien_coordinates2[idx]['type'] == 2:
-      WINDOW.blit(alien.get_alien2(current[0]), (an_alien.x, an_alien.y))
-    else:
-      WINDOW.blit(alien.get_alien3(current[0]), (an_alien.x, an_alien.y))
+    WINDOW.blit(alien.get_alien1(current[0]), (an_alien.x, an_alien.y))
   for i in range(len(shields.shields_coordinates)):
     if shield_images[i] <= 5:
       WINDOW.blit(shield.get_shield(
