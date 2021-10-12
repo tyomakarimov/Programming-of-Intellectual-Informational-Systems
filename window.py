@@ -10,9 +10,8 @@ import shields
 import path
 import the_matrix
 from helpers import the_neighbours
-from BFS import BFS
-from DFS import DFS
-from UCS import UCS
+from A_star import A_star
+from helpers import the_shortest_path
 
 pygame.font.init()
 pygame.display.set_caption('Space Invaders')
@@ -34,8 +33,9 @@ alien_shots = []
 current = [0]
 result = ['']
 asteroids = []
-algorithms = [BFS, DFS, UCS]
+algorithms = [A_star]
 current_algorithm = [0]
+current_index = [0]
 previous_paths = []
 
 for i in range(15): 
@@ -83,6 +83,7 @@ def draw_window():
 
 def show_path(i, current_algorithm, changed):
   curr = current_algorithm[0]
+  current_paths = []
   if changed or i % 60 == 0:
     matrix = the_matrix.generate_matrix()
     aliens = []
@@ -98,12 +99,15 @@ def show_path(i, current_algorithm, changed):
     for idx, an_alien in enumerate(aliens):
       start_time1 = time.time()
       the_path = algorithms[curr](an_alien, a_laser)
+      current_paths.append({ an_alien: len(the_path) })
       times.append(time.time() - start_time1)
       previous_paths[idx] = the_path
     the_time = round(sum(times) / len(times), 7)
     func_name = algorithms[curr].__name__
     print('Current algorithm =>', f'{func_name},', 'Execution time:', the_time)
-  for prev_path in previous_paths:
-    path.draw_path(WINDOW, prev_path)
+  if len(current_paths):
+    shortest_path, index = the_shortest_path.get_the_shortest_path(current_paths)
+    current_index[0] = index
+  path.draw_path(WINDOW, previous_paths[current_index[0]])
   pygame.display.flip()
   pygame.display.update()

@@ -33,12 +33,6 @@ def main():
             10
           )
           shots.append(shot)
-        if event.key == pygame.K_z:
-          if current_algorithm[0] < 2:
-            current_algorithm[0] += 1
-          else:
-            current_algorithm[0] = 0
-          show_path(i, current_algorithm, True)
         if (
           event.key == pygame.K_LEFT or event.key == pygame.K_a
         ) and laser.laser_rect.x - 3 > 0:
