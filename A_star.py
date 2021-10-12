@@ -42,5 +42,3 @@ def A_star(start, target):
         target = step['current']
         path_to_target.insert(0, step['current'])
   return path_to_target
-
-print(A_star(86, 377))

@@ -72,7 +72,7 @@ def draw_window():
   if (laser_image[0] <= 6):
     WINDOW.blit(
       laser.get_laser(laser_image[0]),
-      (laser.laser_rect.x, laser.laser_rect.y)
+      (laser.laser_coordinates['x'], laser.laser_coordinates['y'])
     )
   for shot in shots:
     pygame.draw.rect(WINDOW, (255, 0, 0), shot)
@@ -87,14 +87,14 @@ def show_path(i, current_algorithm, changed):
   if changed or i % 60 == 0:
     matrix = the_matrix.generate_matrix()
     aliens = []
-    laser = []
+    the_laser = []
     for idx1, j in enumerate(matrix):
       for idx2, k in enumerate(j):
         if k == 2:
           aliens.append(the_neighbours.get_element(idx1, idx2))
         if k == 3:
-          laser.append(the_neighbours.get_element(idx1, idx2))
-    a_laser = laser[0]
+          the_laser.append(the_neighbours.get_element(idx1, idx2))
+    a_laser = the_laser[0]
     times = []
     for idx, an_alien in enumerate(aliens):
       start_time1 = time.time()
@@ -108,6 +108,16 @@ def show_path(i, current_algorithm, changed):
   if len(current_paths):
     shortest_path, index = the_shortest_path.get_the_shortest_path(current_paths)
     current_index[0] = index
-  path.draw_path(WINDOW, previous_paths[current_index[0]])
+    the_x = the_neighbours.get_element_indeces(shortest_path)[1]
+    laser.laser_coordinates['x'] = the_x * 30
+    laser.laser_rect.x = the_x * 30
+    shot = pygame.Rect(
+      laser.laser_rect.x + laser.laser_rect.width / 2,
+      laser.laser_rect.y, 
+      5,
+      10
+    )
+    shots.append(shot)
+    path.draw_path(WINDOW, previous_paths[current_index[0]])
   pygame.display.flip()
   pygame.display.update()

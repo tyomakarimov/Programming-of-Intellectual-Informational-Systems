@@ -7,7 +7,7 @@ def handle_laser_shots(
   previous_paths: list,
 ):
   for shot in shots:
-    shot.y -= 7
+    shot.y -= 10
     for idx, shield in enumerate(shields):
       if shield != 0 and (shield.colliderect(shot)):
         if shield_images[idx] == 5:
