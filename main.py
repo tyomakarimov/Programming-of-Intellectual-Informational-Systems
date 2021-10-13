@@ -38,13 +38,13 @@ def main():
         ) and laser.laser_rect.x - 3 > 0:
           laser.laser_rect.x -= 30
           laser.laser_coordinates['x'] -= 30
-          show_path(i, current_algorithm, True)
+          show_path(i, current_algorithm, True, move_left)
         if (
           event.key == pygame.K_RIGHT or event.key == pygame.K_d
         ) and laser.laser_rect.x + laser.laser_rect.width + 10 < WIDTH:
           laser.laser_rect.x += 30
           laser.laser_coordinates['x'] += 30
-          show_path(i, current_algorithm, True)
+          show_path(i, current_algorithm, True, move_left)
     laser_shots.handle_laser_shots(
       shots,
       aliens.aliens,
@@ -83,7 +83,7 @@ def main():
       move_left = move_left_value
       if max_y > 440:
         draw_result('You have lost.')
-    show_path(i, current_algorithm, False)
+    show_path(i, current_algorithm, False, move_left)
     i += 1
   result[0] = ''
   pygame.quit()

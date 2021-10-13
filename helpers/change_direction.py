@@ -11,10 +11,10 @@ def change_current_direction(move_left: bool, aliens: list, coordinates):
   max_y = max(y_positions)
   if min_x <= 1:
     move_left = False
-    for alien in aliens:
-      alien.y += 30
-    for value in coordinates:
-      value['y'] += 30
+    # for alien in aliens:
+    #   alien.y += 30
+    # for value in coordinates:
+    #   value['y'] += 30
   if max_x >= 569:
     move_left = True
   for alien in aliens:

@@ -12,6 +12,7 @@ import the_matrix
 from helpers import the_neighbours
 from A_star import A_star
 from helpers import the_shortest_path
+import run_from_shots
 
 pygame.font.init()
 pygame.display.set_caption('Space Invaders')
@@ -81,7 +82,7 @@ def draw_window():
   pygame.display.flip()
   pygame.display.update()
 
-def show_path(i, current_algorithm, changed):
+def show_path(i, current_algorithm, changed, move_left):
   curr = current_algorithm[0]
   current_paths = []
   if changed or i % 60 == 0:
@@ -102,22 +103,24 @@ def show_path(i, current_algorithm, changed):
       current_paths.append({ an_alien: len(the_path) })
       times.append(time.time() - start_time1)
       previous_paths[idx] = the_path
-    the_time = round(sum(times) / len(times), 7)
-    func_name = algorithms[curr].__name__
-    print('Current algorithm =>', f'{func_name},', 'Execution time:', the_time)
+    # the_time = round(sum(times) / len(times), 7)
+    # func_name = algorithms[curr].__name__
+    # print('Current algorithm =>', f'{func_name},', 'Execution time:', the_time)
   if len(current_paths):
     shortest_path, index = the_shortest_path.get_the_shortest_path(current_paths)
     current_index[0] = index
     the_x = the_neighbours.get_element_indeces(shortest_path)[1]
-    laser.laser_coordinates['x'] = the_x * 30
-    laser.laser_rect.x = the_x * 30
-    shot = pygame.Rect(
-      laser.laser_rect.x + laser.laser_rect.width / 2,
-      laser.laser_rect.y, 
-      5,
-      10
-    )
-    shots.append(shot)
+    if not changed:
+      laser.laser_coordinates['x'] = the_x * 30
+      laser.laser_rect.x = the_x * 30
+      shot = pygame.Rect(
+        laser.laser_rect.x + laser.laser_rect.width / 2,
+        laser.laser_rect.y,
+        5,
+        10
+      )
+      shots.append(shot)
     path.draw_path(WINDOW, previous_paths[current_index[0]])
+    run_from_shots.run_from_shots(shots, aliens, shields.shields, move_left)
   pygame.display.flip()
   pygame.display.update()
