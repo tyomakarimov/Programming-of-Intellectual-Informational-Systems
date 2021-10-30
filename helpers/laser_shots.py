@@ -8,6 +8,9 @@ def handle_laser_shots(
 ):
   for shot in shots:
     shot.y -= 10
+    if shot.y <= 0:
+      shots.remove(shot)
+      continue
     for idx, shield in enumerate(shields):
       if shield != 0 and (shield.colliderect(shot)):
         if shield_images[idx] == 5:

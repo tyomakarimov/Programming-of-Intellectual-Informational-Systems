@@ -82,6 +82,8 @@ def draw_window():
   pygame.display.flip()
   pygame.display.update()
 
+alien_coordinates = aliens.alien_coordinates
+
 def show_path(i, current_algorithm, changed, move_left):
   curr = current_algorithm[0]
   current_paths = []
@@ -121,6 +123,7 @@ def show_path(i, current_algorithm, changed, move_left):
       )
       shots.append(shot)
     path.draw_path(WINDOW, previous_paths[current_index[0]])
-    run_from_shots.run_from_shots(shots, aliens, shields.shields, move_left)
+    # run_from_shots.run_from_shots(shots, aliens, shields.shields, move_left)
+    run_from_shots.run_from_shots(shots, alien_coordinates, shields.shields)
   pygame.display.flip()
   pygame.display.update()
