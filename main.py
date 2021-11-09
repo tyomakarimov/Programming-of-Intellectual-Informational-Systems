@@ -9,8 +9,11 @@ from helpers import the_asteroids
 from helpers import random_shot
 from helpers import current_position
 from helpers import change_direction
+from constants import *
+from csv_writer import write_to_scv
 
 FPS = 60
+result = [0, 0, 0, 0, 0]
 
 def main():
   clock = pygame.time.Clock()
@@ -69,8 +72,19 @@ def main():
     )
     draw_window()
     if len(aliens.aliens) == 0:
+      score = ALIEN_VALUE * NUMBER_OF_ALIENS + (105 - LASER_VALUE * laser_image[0])
+      player_health = TOTAL_HEALTH - laser_image[0] * HEALTH_LOST
+      result[0] = 'True'
+      result[2] = score
+      result[3] = player_health
+      result[4] = algorithms[current_algorithm[0]].__name__
       draw_result('You have won!!!')
     if laser_image[0] > 6:
+      score = ALIEN_VALUE * (NUMBER_OF_ALIENS  - len(aliens.aliens))
+      result[0] = 'False'
+      result[2] = score
+      result[3] = 0
+      result[4] = algorithms[current_algorithm[0]].__name__
       draw_result('You have lost.')
     if (i % 60 == 0) and len(aliens.aliens) > 0:
       random_shot.get_random_shot(len(aliens.aliens), alien_shots, aliens.aliens)
@@ -82,6 +96,12 @@ def main():
       )
       move_left = move_left_value
       if max_y > 440:
+        score = ALIEN_VALUE * NUMBER_OF_ALIENS + (105 - LASER_VALUE * laser_image[0])
+        player_health = TOTAL_HEALTH - laser_image[0] * HEALTH_LOST
+        result[0] = 'False'
+        result[2] = score
+        result[3] = player_health
+        result[4] = algorithms[current_algorithm[0]].__name__
         draw_result('You have lost.')
     show_path(i, current_algorithm, False, move_left)
     i += 1
@@ -89,4 +109,8 @@ def main():
   pygame.quit()
 
 if __name__ == '__main__':
+  start_time = time.time()
   main()
+  finish_time = time.time() - start_time - 5
+  result[1] = finish_time
+  write_to_scv(result)
