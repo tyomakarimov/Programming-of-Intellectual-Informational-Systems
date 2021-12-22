@@ -5,7 +5,9 @@ def handle_laser_shots(
   shield_images: list,
   coordinates: list,
   previous_paths: list,
+  score: int
 ):
+  new_score = score
   for shot in shots:
     shot.y -= 7
     for idx, shield in enumerate(shields):
@@ -20,8 +22,9 @@ def handle_laser_shots(
         if shot in shots:
           shots.remove(shot)
         aliens.remove(alien)
+        new_score = new_score + 10
         for idx, coord in enumerate(coordinates):
           if coord['x'] == alien.x and coord['y'] == alien.y:
             coordinates.remove(coord)
             previous_paths.pop(idx)
-
+  return new_score 

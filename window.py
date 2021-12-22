@@ -57,7 +57,6 @@ def draw_result(text):
   )
   result[0] = text
   pygame.display.update()
-  pygame.time.delay(5000)
 
 def draw_window():
   WINDOW.blit(pygame.transform.scale(BACKGROUND, (800, 600)), (0, 0))
@@ -81,29 +80,29 @@ def draw_window():
   pygame.display.flip()
   pygame.display.update()
 
-def show_path(i, current_algorithm, changed):
-  curr = current_algorithm[0]
-  if changed or i % 60 == 0:
-    matrix = the_matrix.generate_matrix()
-    aliens = []
-    laser = []
-    for idx1, j in enumerate(matrix):
-      for idx2, k in enumerate(j):
-        if k == 2:
-          aliens.append(the_neighbours.get_element(idx1, idx2))
-        if k == 3:
-          laser.append(the_neighbours.get_element(idx1, idx2))
-    a_laser = laser[0]
-    times = []
-    for idx, an_alien in enumerate(aliens):
-      start_time1 = time.time()
-      the_path = algorithms[curr](an_alien, a_laser)
-      times.append(time.time() - start_time1)
-      previous_paths[idx] = the_path
-    the_time = round(sum(times) / len(times), 7)
-    func_name = algorithms[curr].__name__
-    print('Current algorithm =>', f'{func_name},', 'Execution time:', the_time)
-  for prev_path in previous_paths:
-    path.draw_path(WINDOW, prev_path)
+# def show_path(i, current_algorithm, changed):
+#   curr = current_algorithm[0]
+#   if changed or i % 60 == 0:
+#     matrix = the_matrix.generate_matrix()
+#     aliens = []
+#     laser = []
+    # for idx1, j in enumerate(matrix):
+    #   for idx2, k in enumerate(j):
+    #     if k == 2:
+    #       aliens.append(the_neighbours.get_element(idx1, idx2))
+    #     if k == 3:
+    #       laser.append(the_neighbours.get_element(idx1, idx2))
+    # a_laser = laser[0]
+    # times = []
+    # for idx, an_alien in enumerate(aliens):
+    #   start_time1 = time.time()
+    #   the_path = algorithms[curr](an_alien, a_laser)
+    #   times.append(time.time() - start_time1)
+    #   previous_paths[idx] = the_path
+    # the_time = round(sum(times) / len(times), 7)
+    # func_name = algorithms[curr].__name__
+    # print('Current algorithm =>', f'{func_name},', 'Execution time:', the_time)
+  # for prev_path in previous_paths:
+  #   path.draw_path(WINDOW, prev_path)
   pygame.display.flip()
   pygame.display.update()

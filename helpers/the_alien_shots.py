@@ -10,7 +10,7 @@ def handle_alien_shots(
   for shot in alien_shots:
     shot.y += 7
     if laser.colliderect(shot):
-      laser_image[0] += 1
+      laser_image[0] += 7
       if shot in alien_shots:
         alien_shots.remove(shot)
 
